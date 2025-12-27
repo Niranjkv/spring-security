@@ -1,0 +1,38 @@
+# Spring Security Basics: Secure a Simple Web Application
+
+Your task is to create a basic Spring Boot web application and secure it using Spring Security. You will implement in-memory authentication and define different access rules for various endpoints based on user roles.
+
+## Project Setup
+
+1.  **Initialize a Spring Boot Project:** Create a new Spring Boot project (e.g., using Spring Initializr at `start.spring.io`).
+    *   **Dependencies:** Add `Spring Web` and `Spring Security`.
+
+## Application Requirements
+
+2.  **Create a REST Controller:**
+    *   Create a class named `MyController` annotated with `@RestController`.
+    *   Implement the following three GET endpoints:
+        *   `GET /public`: Returns a simple message like "This is a public endpoint."
+        *   `GET /user`: Returns a simple message like "This is for authenticated users."
+        *   `GET /admin`: Returns a simple message like "This is for administrators only."
+
+3.  **Configure Spring Security:**
+    *   Create a new configuration class named `SecurityConfig` annotated with `@Configuration` and `@EnableWebSecurity`.
+    *   **In-Memory User Details:** Configure two in-memory users with specific roles:
+        *   **User 1:** `username: user`, `password: password`, `roles: USER`
+        *   **User 2:** `username: admin`, `password: adminpass`, `roles: USER, ADMIN`
+    *   **Endpoint Authorization:** Configure `HttpSecurity` to secure the endpoints as follows:
+        *   `/public`: Accessible to all (unauthenticated users included).
+        *   `/user`: Accessible to users with `ROLE_USER` or `ROLE_ADMIN`.
+        *   `/admin`: Accessible only to users with `ROLE_ADMIN`.
+        *   All other requests should require authentication.
+    *   **Form Login:** Ensure that form-based login is enabled for authentication.
+
+## Testing Your Application
+
+4.  **Run the Spring Boot application.**
+5.  **Test access to the endpoints using your browser or a tool like cURL/Postman:**
+    *   Verify that `http://localhost:8080/public` is accessible without logging in.
+    *   Try to access `http://localhost:8080/user` and observe that you are redirected to a login page.
+    *   Log in as `user` (password `password`) and try accessing `http://localhost:8080/user`. It should be successful. Try `http://localhost:8080/admin` and verify that access is denied.
+    *   Log in as `admin` (password `adminpass`) and try accessing `http://localhost:8080/user` and `http://localhost:8080/admin`. Both should be successful.
