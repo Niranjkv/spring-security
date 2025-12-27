@@ -1,0 +1,17 @@
+Flow of Authentication Process:
+
+1. User submits login credentials (username and password).
+
+2. The AuthenticationManager is invoked by Spring Security to handle the authentication.
+
+3. The AuthenticationManager checks which AuthenticationProvider should handle the authentication.
+
+4. DaoAuthenticationProvider is selected because it’s configured to use database-backed authentication.
+
+5. DaoAuthenticationProvider calls the UserDetailsService to fetch the user details from the database.
+
+6. The DaoAuthenticationProvider compares the provided password with the stored password (using a PasswordEncoder).
+
+7. If the passwords match, DaoAuthenticationProvider returns a fully authenticated Authentication object, which is passed back to the AuthenticationManager.
+
+8. The user is considered authenticated and granted access based on their roles and permissions.
